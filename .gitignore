@@ -1,0 +1,12 @@
+@"
+node_modules/
+target/
+__pycache__/
+venv/
+.venv/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+"@ | Add-Content .gitignore
