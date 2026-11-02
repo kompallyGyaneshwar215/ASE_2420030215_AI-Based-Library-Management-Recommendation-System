@@ -57,8 +57,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/recommendations/popular").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/error").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/", "/error").permitAll()
+                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/librarian/**").hasAnyRole("LIBRARIAN", "ADMIN")
                         .anyRequest().authenticated()
                 );

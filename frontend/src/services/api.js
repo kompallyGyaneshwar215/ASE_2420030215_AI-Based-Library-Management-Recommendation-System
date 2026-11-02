@@ -1,6 +1,8 @@
+
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
+  'http://localhost:8080/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -26,15 +28,22 @@ api.interceptors.response.use(
   (response) => response.data,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Clear token if unauthorized, except on login/register endpoints
-      const isAuthEndpoint = error.config?.url?.includes('/auth/login') || error.config?.url?.includes('/auth/register');
+      const isAuthEndpoint =
+        error.config?.url?.includes('/auth/login') ||
+        error.config?.url?.includes('/auth/register');
+
       if (!isAuthEndpoint) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location.href = '/login';
       }
     }
-    return Promise.reject(error.response?.data?.message || error.message || 'An unexpected error occurred');
+
+    return Promise.reject(
+      error.response?.data?.message ||
+      error.message ||
+      'An unexpected error occurred'
+    );
   }
 );
 
@@ -101,11 +110,15 @@ export const wishlistApi = {
 
 // AI Recommendations Service
 export const recommendationApi = {
-  getMyRecommendations: (limit = 8) => api.get('/recommendations/me', { params: { limit } }),
-  getSimilar: (bookId, limit = 4) => api.get(`/recommendations/similar/${bookId}`, { params: { limit } }),
-  getPopular: (limit = 8) => api.get('/recommendations/popular', { params: { limit } }),
+  getMyRecommendations: (limit = 8) =>
+    api.get('/recommendations/me', { params: { limit } }),
+  getSimilar: (bookId, limit = 4) =>
+    api.get(`/recommendations/similar/${bookId}`, { params: { limit } }),
+  getPopular: (limit = 8) =>
+    api.get('/recommendations/popular', { params: { limit } }),
   getPreferences: () => api.get('/recommendations/preferences'),
-  updatePreferences: (data) => api.put('/recommendations/preferences', data),
+  updatePreferences: (data) =>
+    api.put('/recommendations/preferences', data),
 };
 
 // Dashboard Service
@@ -119,7 +132,8 @@ export const dashboardApi = {
 export const adminApi = {
   getUsers: (role) => api.get('/admin/users', { params: { role } }),
   createLibrarian: (data) => api.post('/admin/librarians', data),
-  toggleStatus: (id, status) => api.put(`/admin/users/${id}/status`, { status }),
+  toggleStatus: (id, status) =>
+    api.put(`/admin/users/${id}/status`, { status }),
   getSettings: () => api.get('/admin/settings'),
   updateSettings: (data) => api.put('/admin/settings', data),
 };
