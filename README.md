@@ -376,10 +376,4 @@ npm run build
 
 ---
 
-## 10. Key Features for Academic / B.Tech Evaluation
-
-1. **Zero-Mock Integrity:** All features connect directly to real Spring Boot REST endpoints, database entities, and live machine learning scoring.
-2. **Atomic Inventory Control:** Concurrency-safe decrement/increment of book copies during issuance and return.
-3. **Real Machine Learning Integration:** Recommendations are computed from actual TF-IDF feature matrices and Cosine similarity metrics with dynamic reasons, rather than static mock percentages.
-4. **Clean Layered Architecture:** Strict adherence to Controller-Service-Repository-Entity pattern, standard DTO transfer, and custom exception handling.
-5. **Interactive UI Analytics:** Student and administrative KPIs rendered with interactive Recharts diagrams.
+Render Link:https://ai-based-library-management-l70m.onrender.com
